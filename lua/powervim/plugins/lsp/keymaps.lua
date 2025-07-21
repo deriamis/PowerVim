@@ -27,7 +27,7 @@ function M.get()
       { "<leader>cC", vim.lsp.codelens.refresh, desc = "Refresh & Display Codelens", mode = { "n" }, has = "codeLens" },
       { "<leader>cR", function() Snacks.rename.rename_file() end, desc = "Rename File", mode ={"n"}, has = { "workspace/didRenameFiles", "workspace/willRenameFiles" } },
       { "<leader>cr", vim.lsp.buf.rename, desc = "Rename", has = "rename" },
-      { "<leader>cA", powervim.lsp.action.source, desc = "Source Action", has = "codeAction" },
+      { "<leader>cA", PowerVim.lsp.action.source, desc = "Source Action", has = "codeAction" },
       { "]]", function() Snacks.words.jump(vim.v.count1) end, has = "documentHighlight",
         desc = "Next Reference", cond = function() return Snacks.words.is_enabled() end },
       { "[[", function() Snacks.words.jump(-vim.v.count1) end, has = "documentHighlight",
@@ -52,7 +52,7 @@ function M.has(buffer, method)
     return false
   end
   method = method:find("/") and method or "textDocument/" .. method
-  local clients = powervim.lsp.get_clients({ bufnr = buffer })
+  local clients = PowerVim.lsp.get_clients({ bufnr = buffer })
   for _, client in ipairs(clients) do
     if client.supports_method(method) then
       return true
@@ -68,8 +68,8 @@ function M.resolve(buffer)
     return {}
   end
   local spec = vim.tbl_extend("force", {}, M.get())
-  local opts = powervim.opts("nvim-lspconfig")
-  local clients = powervim.lsp.get_clients({ bufnr = buffer })
+  local opts = PowerVim.opts("nvim-lspconfig")
+  local clients = PowerVim.lsp.get_clients({ bufnr = buffer })
   for _, client in ipairs(clients) do
     local maps = opts.servers[client.name] and opts.servers[client.name].keys or {}
     vim.list_extend(spec, maps)
