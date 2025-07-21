@@ -29,48 +29,15 @@ function M.save_core()
 end
 
 function M.setup()
-  M.fix_imports()
-  M.fix_renames()
-  M.lazy_file()
+  M.power_file()
 end
 
-function M.lazy_file()
+function M.power_file()
   -- Add support for the PowerFile event
   local Event = require("lazy.core.handler.event")
 
   Event.mappings.PowerFile = { id = "PowerFile", event = M.lazy_file_events }
   Event.mappings["User PowerFile"] = Event.mappings.PowerFile
-end
-
-function M.fix_imports()
-  local defaults ---@type table<string, PowerVimDefault>
-  Plugin.Spec.import = PowerVim.inject.args(Plugin.Spec.import, function(_, spec)
-    if M.handle_defaults and PowerVim.config.json.loaded then
-      defaults = defaults or PowerVim.config.get_defaults()
-      local def = defaults[spec.import]
-      if def and def.enabled == false then
-        return false
-      end
-    end
-  end)
-end
-
-function M.fix_renames()
-  Plugin.Spec.add = PowerVim.inject.args(Plugin.Spec.add, function(self, plugin)
-    if type(plugin) == "table" then
-      if M.renames[plugin[1]] then
-        PowerVim.warn(
-          ("Plugin `%s` was renamed to `%s`.\nPlease update your config for `%s`"):format(
-            plugin[1],
-            M.renames[plugin[1]],
-            self.importing or "PowerVim"
-          ),
-          { title = "PowerVim" }
-        )
-        plugin[1] = M.renames[plugin[1]]
-      end
-    end
-  end)
 end
 
 return M
