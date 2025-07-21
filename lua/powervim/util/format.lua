@@ -24,7 +24,7 @@ function M.register(formatter)
 end
 
 function M.formatexpr()
-  if LazyVim.has("conform.nvim") then
+  if PowerVim.has("conform.nvim") then
     return require("conform").formatexpr()
   end
   return vim.lsp.formatexpr({ timeout_ms = 3000 })
@@ -74,7 +74,7 @@ function M.info(buf)
   if not have then
     lines[#lines + 1] = "\n***No formatters available for this buffer.***"
   end
-  LazyVim[enabled and "info" or "warn"](
+  PowerVim[enabled and "info" or "warn"](
     table.concat(lines, "\n"),
     { title = "LazyFormat (" .. (enabled and "enabled" or "disabled") .. ")" }
   )
@@ -127,14 +127,14 @@ function M.format(opts)
   for _, formatter in ipairs(M.resolve(buf)) do
     if formatter.active then
       done = true
-      LazyVim.try(function()
+      PowerVim.try(function()
         return formatter.format(buf)
       end, { msg = "Formatter `" .. formatter.name .. "` failed" })
     end
   end
 
   if not done and opts and opts.force then
-    LazyVim.warn("No formatter available", { title = "LazyVim" })
+    PowerVim.warn("No formatter available", { title = "PowerVim" })
   end
 end
 
@@ -166,10 +166,10 @@ function M.snacks_toggle(buf)
       if not buf then
         return vim.g.autoformat == nil or vim.g.autoformat
       end
-      return LazyVim.format.enabled()
+      return PowerVim.format.enabled()
     end,
     set = function(state)
-      LazyVim.format.enable(state, buf)
+      PowerVim.format.enable(state, buf)
     end,
   })
 end
