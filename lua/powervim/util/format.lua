@@ -6,16 +6,16 @@ local M = setmetatable({}, {
   end,
 })
 
----@class LazyFormatter
+---@class PowerFormatter
 ---@field name string
 ---@field primary? boolean
 ---@field format fun(bufnr:number)
 ---@field sources fun(bufnr:number):string[]
 ---@field priority number
 
-M.formatters = {} ---@type LazyFormatter[]
+M.formatters = {} ---@type PowerFormatter[]
 
----@param formatter LazyFormatter
+---@param formatter PowerFormatter
 function M.register(formatter)
   M.formatters[#M.formatters + 1] = formatter
   table.sort(M.formatters, function(a, b)
@@ -31,11 +31,11 @@ function M.formatexpr()
 end
 
 ---@param buf? number
----@return (LazyFormatter|{active:boolean,resolved:string[]})[]
+---@return (PowerFormatter|{active:boolean,resolved:string[]})[]
 function M.resolve(buf)
   buf = buf or vim.api.nvim_get_current_buf()
   local have_primary = false
-  ---@param formatter LazyFormatter
+  ---@param formatter PowerFormatter
   return vim.tbl_map(function(formatter)
     local sources = formatter.sources(buf)
     local active = #sources > 0 and (not formatter.primary or not have_primary)
@@ -76,7 +76,7 @@ function M.info(buf)
   end
   PowerVim[enabled and "info" or "warn"](
     table.concat(lines, "\n"),
-    { title = "LazyFormat (" .. (enabled and "enabled" or "disabled") .. ")" }
+    { title = "PowerFormat (" .. (enabled and "enabled" or "disabled") .. ")" }
   )
 end
 
@@ -148,12 +148,12 @@ function M.setup()
   })
 
   -- Manual format
-  vim.api.nvim_create_user_command("LazyFormat", function()
+  vim.api.nvim_create_user_command("PowerFormat", function()
     M.format({ force = true })
   end, { desc = "Format selection or buffer" })
 
   -- Format info
-  vim.api.nvim_create_user_command("LazyFormatInfo", function()
+  vim.api.nvim_create_user_command("PowerFormatInfo", function()
     M.info()
   end, { desc = "Show info about the formatters for the current buffer" })
 end

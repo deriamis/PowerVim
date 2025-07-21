@@ -290,7 +290,7 @@ function M.init()
   -- after installing missing plugins
   M.load("options")
   -- defer built-in clipboard handling: "xsel" and "pbcopy" can be slow
-  lazy_clipboard = vim.opt.clipboard
+  clipboard = vim.opt.clipboard
   vim.opt.clipboard = ""
 
   if vim.g.deprecation_warnings == false then

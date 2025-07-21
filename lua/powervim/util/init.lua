@@ -169,7 +169,7 @@ end
 -- It will also set `silent` to true by default.
 function M.safe_keymap_set(mode, lhs, rhs, opts)
   local keys = require("lazy.core.handler").handlers.keys
-  ---@cast keys LazyKeysHandler
+  ---@cast keys PowerKeysHandler
   local modes = type(mode) == "string" and { mode } or mode
 
   ---@param m string
