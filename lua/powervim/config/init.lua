@@ -10,7 +10,7 @@ PowerVim.config = M
 local defaults = {
   ---@type string|fun()
   colorscheme = function()
-    require("catpuccin").load()
+    require("catppuccin").load()
   end,
   -- load the default settings
   defaults = {
