@@ -29,6 +29,7 @@ function M.save_core()
 end
 
 function M.setup()
+  M.fix_renames()
   M.power_file()
 end
 
@@ -38,6 +39,24 @@ function M.power_file()
 
   Event.mappings.PowerFile = { id = "PowerFile", event = M.lazy_file_events }
   Event.mappings["User PowerFile"] = Event.mappings.PowerFile
+end
+
+function M.fix_renames()
+  Plugin.Spec.add = PowerVim.inject.args(Plugin.Spec.add, function(self, plugin)
+    if type(plugin) == "table" then
+      if M.renames[plugin[1]] then
+        PowerVim.warn(
+          ("Plugin `%s` was renamed to `%s`.\nPlease update your config for `%s`"):format(
+            plugin[1],
+            M.renames[plugin[1]],
+            self.importing or "PowerVim"
+          ),
+          { title = "PowerVim" }
+        )
+        plugin[1] = M.renames[plugin[1]]
+      end
+    end
+  end)
 end
 
 return M
