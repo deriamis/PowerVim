@@ -139,8 +139,6 @@ function M.format(opts)
 end
 
 function M.setup()
-  M.health()
-
   -- Autoformat autocmd
   vim.api.nvim_create_autocmd("BufWritePre", {
     group = vim.api.nvim_create_augroup("PowerFormat", {}),
