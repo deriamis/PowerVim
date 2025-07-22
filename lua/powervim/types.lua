@@ -3,7 +3,6 @@
 ---@class PowerVimGlobals
 vim.g = {}
 
-_G.powervim_docs = true
 _G.PowerVim = require("powervim.util")
 
 ---@class vim.api.create_autocmd.callback.args

@@ -277,7 +277,7 @@ return {
       scroll = { enabled = true },
       statuscolumn = { enabled = false }, -- we set this in options.lua
       toggle = { map = PowerVim.safe_keymap_set },
-      words = { enabled = true },
+      words = { enabled = vim.g.powervim_highlight == "snacks" },
     },
     -- stylua: ignore
     keys = {

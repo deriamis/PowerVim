@@ -3,7 +3,7 @@ vim.g.mapleader = " "
 vim.g.maplocalleader = "\\"
 
 -- PowerVim auto format
-vim.g.autoformat = true
+vim.g.autoformat = false
 
 -- Snacks animations
 -- Set to `false` to globally disable all snacks animations
@@ -14,15 +14,55 @@ vim.g.snacks_animate = true
 -- Leave it to "auto" to automatically use the default
 vim.g.powervim_picker = "auto"
 
+-- PowerVim file explorer to use.
+-- Can be one of: neo-tree, mini, snacks, user
+-- Leave it to "auto" to automatically use the default
+vim.g.powervim_explorer = "auto"
+
 -- PowerVim completion engine to use.
 -- Can be one of: nvim-cmp, blink.cmp, user
 -- Leave it to "auto" to automatically use the default
--- completion engine
 vim.g.powervim_cmp = "auto"
 
--- if the completion engine supports the AI source,
+-- PowerVim word highlight engine to use.
+-- Can be one of: snacks, illuminate, user
+-- Leave it to "auto" to automatically use the default
+vim.g.powervim_highlight = "auto"
+
+-- PowerVim diff display engine to use.
+-- Can be one of: gitsigns, mini, user
+vim.g.powervim_diff = "auto"
+
+-- PowerVim symbol browser engine to use.
+-- Can be one of: trouble, aerial, outline, user, auto
+-- Leave it to "auto" to automatically use the default
+vim.g.powervim_symbol_browser = "auto"
+
+-- PowerVim AI integrations.
+-- Whether to enable AI integration features.
+vim.g.ai = false
+
+-- PowerVim AI completions.
+-- If AI integration is enabled and the
+-- completion engine supports the AI source,
 -- use that instead of inline suggestions
 vim.g.ai_cmp = false
+
+-- Snippets plugin to use
+-- Can be one of: nvim-snippets, mini, luasnip, user, auto
+-- Leave it to "auto" to automatically use the default
+vim.g.powervim_snippets = "auto"
+
+-- Snippets in completions
+-- Set to `false` to prevent "non-lsp snippets"" from appearing inside completion windows
+-- Motivation: Less clutter in completion windows and a more direct usage of snippets
+vim.g.powervim_snippets_in_completions = true
+
+-- Use `cmp` main branch
+-- set to `true` to follow the main branch
+-- you need to have a working rust toolchain to build the plugin
+-- in this case.
+vim.g.powervim_blink_main = false
 
 -- PowerVim root dir detection
 -- Each entry can be:

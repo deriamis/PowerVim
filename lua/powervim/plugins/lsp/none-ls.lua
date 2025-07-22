@@ -2,6 +2,7 @@ return {
   -- none-ls
   {
     "nvimtools/none-ls.nvim",
+    priority = 20,
     event = "PowerFile",
     dependencies = { "mason.nvim" },
     init = function()
