@@ -8,6 +8,11 @@ if not vim.g.powervim_cmp == "blink.cmp" then
   }
 end
 
+local build_main = false
+if vim.fn.executable("rustc") == 1 and vim.fn.executable("cargo") == 1 then
+  build_main = true
+end
+
 return {
   {
     "hrsh7th/nvim-cmp",
@@ -17,8 +22,8 @@ return {
   {
     "saghen/blink.cmp",
     priority = 5,
-    version = not vim.g.powervim_blink_main and "*",
-    build = vim.g.powervim_blink_main and "cargo build --release",
+    version = not build_main and "*",
+    build = build_main and "cargo build --release",
     opts_extend = {
       "sources.completion.enabled_providers",
       "sources.compat",
@@ -70,7 +75,7 @@ return {
           auto_show_delay_ms = 200,
         },
         ghost_text = {
-          enabled = vim.g.ai and vim.g.ai_cmp,
+          enabled = vim.g.powervim.enable_ai and vim.g.powervim.cmp.ai,
         },
       },
 

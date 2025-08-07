@@ -1,4 +1,4 @@
-if not vim.g.ai then
+if not vim.g.powervim.ai.enable and vim.tbl_contains(vim.g.powervim.ai.integrations, "copilot-chat") then
   return {}
 end
 

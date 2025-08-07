@@ -92,7 +92,7 @@ return {
         },
         experimental = {
           -- only show ghost text when we show ai completions
-          ghost_text = vim.g.ai and vim.g.ai_cmp and {
+          ghost_text = vim.g.powervim.enable_ai and vim.g.powervim.cmp.ai and {
             hl_group = "CmpGhostText",
           } or false,
         },

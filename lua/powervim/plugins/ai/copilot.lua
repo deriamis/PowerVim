@@ -1,4 +1,4 @@
-if not vim.g.ai then
+if not vim.g.powervim.ai.enable and vim.tbl_contains(vim.g.powervim.ai.integrations, "copilot") then
   return {}
 end
 
@@ -13,9 +13,9 @@ return {
     event = "BufReadPost",
     opts = {
       suggestion = {
-        enabled = not vim.g.ai_cmp,
+        enabled = not vim.g.powervim.cmp.ai,
         auto_trigger = true,
-        hide_during_completion = vim.g.ai_cmp,
+        hide_during_completion = vim.g.powervim.cmp.ai,
         keymap = {
           accept = false, -- handled by nvim-cmp / blink.cmp
           next = "<M-]>",
@@ -64,7 +64,7 @@ return {
     end,
   },
 
-  vim.g.ai_cmp
+  vim.g.powervim.cmp.ai
       and {
         -- copilot cmp source
         {

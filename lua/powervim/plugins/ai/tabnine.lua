@@ -1,4 +1,4 @@
-if not vim.g.ai and vim.g.ai_cmp then
+if not vim.g.powervim.ai.enable and vim.tbl_contains(vim.g.powervim.ai.integrations, "tabnine") then
   return {}
 end
 
@@ -39,7 +39,7 @@ return {
     end,
   },
 
-  {
+  vim.g.powervim.cmp.ai and {
     "saghen/blink.cmp",
     optional = true,
     dependencies = { "tzachar/cmp-tabnine", "saghen/blink.compat" },
@@ -55,7 +55,7 @@ return {
         },
       },
     },
-  },
+  } or nil,
 
   -- Show TabNine status in lualine
   {

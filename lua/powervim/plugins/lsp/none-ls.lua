@@ -4,7 +4,7 @@ return {
     "nvimtools/none-ls.nvim",
     priority = 20,
     event = "PowerFile",
-    dependencies = { "mason.nvim" },
+    dependencies = { "mason-org/mason.nvim" },
     init = function()
       PowerVim.on_very_lazy(function()
         -- register the formatter with PowerVim

@@ -1,4 +1,4 @@
-if not vim.g.ai then
+if not vim.g.powervim.ai.enable and vim.tbl_contains(vim.g.powervim.ai.integrations, "codeium") then
   return {}
 end
 
@@ -12,9 +12,9 @@ return {
     event = "InsertEnter",
     build = ":Codeium Auth",
     opts = {
-      enable_cmp_source = vim.g.ai_cmp,
+      enable_cmp_source = vim.g.powervim.cmp.ai,
       virtual_text = {
-        enabled = not vim.g.ai_cmp,
+        enabled = not vim.g.powervim.cmp.ai,
         key_bindings = {
           accept = false, -- handled by nvim-cmp / blink.cmp
           next = "<M-]>",
@@ -62,7 +62,7 @@ return {
     end,
   },
 
-  vim.g.ai_cmp and {
+  vim.g.powervim.cmp.ai and {
     "saghen/blink.cmp",
     optional = true,
     dependencies = { "codeium.nvim", "saghen/blink.compat" },

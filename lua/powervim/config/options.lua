@@ -9,84 +9,96 @@ vim.g.autoformat = false
 -- Set to `false` to globally disable all snacks animations
 vim.g.snacks_animate = true
 
--- PowerVim picker to use.
--- Can be one of: telescope, fzf, snacks, user
--- Leave it to "auto" to automatically use the default
-vim.g.powervim_picker = "auto"
+vim.g.powervim = {
+  -- Hide deprecation warnings
+  deprecation_warnings = false,
 
--- PowerVim file explorer to use.
--- Can be one of: neo-tree, mini, snacks, user
--- Leave it to "auto" to automatically use the default
-vim.g.powervim_explorer = "auto"
+  -- Show the current document symbols location from Trouble in lualine
+  -- You can disable this for a buffer by setting `vim.b.trouble_lualine = false`
+  trouble_lualine = true,
 
--- PowerVim completion engine to use.
--- Can be one of: nvim-cmp, blink.cmp, user
--- Leave it to "auto" to automatically use the default
-vim.g.powervim_cmp = "auto"
+  -- PowerVim component modules to use.
+  components = {
+    -- PowerVim picker to use.
+    -- Can be one of: telescope, fzf, snacks, user
+    -- Leave it to "auto" to automatically use the default
+    picker = "auto",
 
--- PowerVim word highlight engine to use.
--- Can be one of: snacks, illuminate, user
--- Leave it to "auto" to automatically use the default
-vim.g.powervim_highlight = "auto"
+    -- PowerVim file explorer to use.
+    -- Can be one of: neo-tree, mini, snacks, user
+    -- Leave it to "auto" to automatically use the default
+    explorer = "auto",
 
--- PowerVim diff display engine to use.
--- Can be one of: gitsigns, mini, user
-vim.g.powervim_diff = "auto"
+    -- PowerVim completion engine to use.
+    -- Can be one of: nvim-cmp, blink.cmp, user
+    -- Leave it to "auto" to automatically use the default
+    cmp = "auto",
 
--- PowerVim symbol browser engine to use.
--- Can be one of: trouble, aerial, outline, user, auto
--- Leave it to "auto" to automatically use the default
-vim.g.powervim_symbol_browser = "auto"
+    -- PowerVim word highlighter to use.
+    -- Can be one of: snacks, illuminate, user
+    -- Leave it to "auto" to automatically use the default
+    highlight = "auto",
 
--- PowerVim AI integrations.
--- Whether to enable AI integration features.
-vim.g.ai = false
+    -- PowerVim diff visualizer to use.
+    -- Can be one of: gitsigns, mini, user
+    diff = "auto",
 
--- PowerVim AI completions.
--- If AI integration is enabled and the
--- completion engine supports the AI source,
--- use that instead of inline suggestions
-vim.g.ai_cmp = false
+    -- PowerVim symbol browser to use.
+    -- Can be one of: trouble, aerial, outline, user, auto
+    -- Leave it to "auto" to automatically use the default
+    symbol_browser = "auto",
 
--- Snippets plugin to use
--- Can be one of: nvim-snippets, mini, luasnip, user, auto
--- Leave it to "auto" to automatically use the default
-vim.g.powervim_snippets = "auto"
+    -- Snippets engine to use
+    -- Can be one of: nvim-snippets, mini, luasnip, user, auto
+    -- Leave it to "auto" to automatically use the default
+    snippets = "auto",
+  },
 
--- Snippets in completions
--- Set to `false` to prevent "non-lsp snippets"" from appearing inside completion windows
--- Motivation: Less clutter in completion windows and a more direct usage of snippets
-vim.g.powervim_snippets_in_completions = true
+  projects = {
+    languages = {},
+    formatters = {},
+    -- Set LSP servers to be ignored when used with `util.root.detectors.lsp`
+    -- for detecting the LSP root
+    lsp_ignore = { "copilot" },
+    -- PowerVim root dir detection
+    -- Each entry can be:
+    -- * the name of a detector function like `lsp` or `cwd`
+    -- * a pattern or array of patterns like `.git` or `lua`.
+    -- * a function with signature `function(buf) -> string|string[]`
+    root_spec = { "lsp", { ".git", "lua" }, "cwd" },
+  },
 
--- Use `cmp` main branch
--- set to `true` to follow the main branch
--- you need to have a working rust toolchain to build the plugin
--- in this case.
-vim.g.powervim_blink_main = false
+  -- Completions configuration.
+  cmp = {
+    -- PowerVim AI completions.
+    -- If AI integration is enabled and the
+    -- completion engine supports the AI source,
+    -- use that instead of inline suggestions
+    ai = false,
 
--- PowerVim root dir detection
--- Each entry can be:
--- * the name of a detector function like `lsp` or `cwd`
--- * a pattern or array of patterns like `.git` or `lua`.
--- * a function with signature `function(buf) -> string|string[]`
-vim.g.root_spec = { "lsp", { ".git", "lua" }, "cwd" }
+    -- Snippets in completions
+    -- Set to `false` to prevent "non-lsp snippets"" from appearing inside completion windows
+    -- Motivation: Less clutter in completion windows and a more direct usage of snippets
+    snippets = true,
+  },
+
+  -- PowerVim AI integrations.
+  ai = {
+    -- Whether to enable AI integration features.
+    enable = false,
+
+    -- Which AI integrations to enable.
+    -- May be zero or more of:
+    --   copilot, copilot-chat, codeium, tabnine, supermaven
+    integrations = {},
+  },
+}
 
 -- Optionally setup the terminal to use
 -- This sets `vim.o.shell` and does some additional configuration for:
 -- * pwsh
 -- * powershell
 -- PowerVim.terminal.setup("pwsh")
-
--- Set LSP servers to be ignored when used with `util.root.detectors.lsp`
--- for detecting the LSP root
-vim.g.root_lsp_ignore = { "copilot" }
-
--- Hide deprecation warnings
-vim.g.deprecation_warnings = false
-
--- Show the current document symbols location from Trouble in lualine
--- You can disable this for a buffer by setting `vim.b.trouble_lualine = false`
-vim.g.trouble_lualine = true
 
 local opt = vim.opt
 

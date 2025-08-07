@@ -4,7 +4,7 @@ return {
     "neovim/nvim-lspconfig",
     event = "PowerFile",
     dependencies = {
-      "mason.nvim",
+      "mason-org/mason.nvim",
       { "mason-org/mason-lspconfig.nvim", config = function() end },
     },
     opts = function()

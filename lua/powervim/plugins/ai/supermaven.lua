@@ -1,4 +1,4 @@
-if not vim.g.ai then
+if not vim.g.powervim.ai.enable and vim.tbl_contains(vim.g.powervim.ai.integrations, "supermaven") then
   return {}
 end
 
@@ -15,7 +15,7 @@ return {
       keymaps = {
         accept_suggestion = nil, -- handled by nvim-cmp / blink.cmp
       },
-      disable_inline_completion = vim.g.ai_cmp,
+      disable_inline_completion = vim.g.powervim.cmp.ai,
       ignore_filetypes = { "bigfile", "snacks_input", "snacks_notif" },
     },
   },
@@ -45,7 +45,7 @@ return {
     optional = true,
     dependencies = { "supermaven-nvim" },
     opts = function(_, opts)
-      if vim.g.ai_cmp then
+      if vim.g.powervim.cmp.ai then
         table.insert(opts.sources, 1, {
           name = "supermaven",
           group_index = 1,
@@ -55,7 +55,7 @@ return {
     end,
   },
 
-  vim.g.ai_cmp and {
+  vim.g.powervim.cmp.ai and {
     "saghen/blink.cmp",
     optional = true,
     dependencies = { "supermaven-nvim", "saghen/blink.compat" },
