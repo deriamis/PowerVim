@@ -1,0 +1,176 @@
+-- This file is automatically loaded by plugins.core
+vim.g.mapleader = " "
+vim.g.maplocalleader = "\\"
+
+-- GeekVim auto format
+vim.g.autoformat = false
+
+-- Snacks animations
+-- Set to `false` to globally disable all snacks animations
+vim.g.snacks_animate = true
+
+vim.g.geekvim = {
+  -- Hide deprecation warnings
+  deprecation_warnings = false,
+
+  -- Show the current document symbols location from Trouble in lualine
+  -- You can disable this for a buffer by setting `vim.b.trouble_lualine = false`
+  trouble_lualine = true,
+
+  -- GeekVim component modules to use.
+  components = {
+    -- GeekVim picker to use.
+    -- Can be one of: telescope, fzf, snacks, user
+    -- Leave it to "auto" to automatically use the default
+    picker = "auto",
+
+    -- GeekVim file explorer to use.
+    -- Can be one of: neo-tree, mini, snacks, user
+    -- Leave it to "auto" to automatically use the default
+    explorer = "auto",
+
+    -- GeekVim completion engine to use.
+    -- Can be one of: nvim-cmp, blink.cmp, user
+    -- Leave it to "auto" to automatically use the default
+    cmp = "auto",
+
+    -- GeekVim word highlighter to use.
+    -- Can be one of: snacks, illuminate, user
+    -- Leave it to "auto" to automatically use the default
+    highlight = "auto",
+
+    -- GeekVim diff visualizer to use.
+    -- Can be one of: gitsigns, mini, user
+    diff = "auto",
+
+    -- GeekVim symbol browser to use.
+    -- Can be one of: trouble, aerial, outline, user, auto
+    -- Leave it to "auto" to automatically use the default
+    symbol_browser = "auto",
+
+    -- Snippets engine to use
+    -- Can be one of: nvim-snippets, mini, luasnip, user, auto
+    -- Leave it to "auto" to automatically use the default
+    snippets = "auto",
+  },
+
+  projects = {
+    languages = {},
+    formatters = {},
+    -- Set LSP servers to be ignored when used with `util.root.detectors.lsp`
+    -- for detecting the LSP root
+    lsp_ignore = { "copilot" },
+    -- GeekVim root dir detection
+    -- Each entry can be:
+    -- * the name of a detector function like `lsp` or `cwd`
+    -- * a pattern or array of patterns like `.git` or `lua`.
+    -- * a function with signature `function(buf) -> string|string[]`
+    root_spec = { "lsp", { ".git", "lua" }, "cwd" },
+  },
+
+  -- Completions configuration.
+  cmp = {
+    -- GeekVim AI completions.
+    -- If AI integration is enabled and the
+    -- completion engine supports the AI source,
+    -- use that instead of inline suggestions
+    ai = false,
+
+    -- Snippets in completions
+    -- Set to `false` to prevent "non-lsp snippets"" from appearing inside completion windows
+    -- Motivation: Less clutter in completion windows and a more direct usage of snippets
+    snippets = true,
+  },
+
+  -- GeekVim AI integrations.
+  ai = {
+    -- Whether to enable AI integration features.
+    enable = false,
+
+    -- Which AI integrations to enable.
+    -- May be zero or more of:
+    --   copilot, copilot-chat, codeium, tabnine, supermaven
+    integrations = {},
+  },
+}
+
+-- Optionally setup the terminal to use
+-- This sets `vim.o.shell` and does some additional configuration for:
+-- * pwsh
+-- * powershell
+-- GeekVim.terminal.setup("pwsh")
+
+local opt = vim.opt
+
+opt.autowrite = true -- Enable auto write
+-- only set clipboard if not in ssh, to make sure the OSC 52
+-- integration works automatically. Requires Neovim >= 0.10.0
+opt.clipboard = vim.env.SSH_TTY and "" or "unnamedplus" -- Sync with system clipboard
+opt.completeopt = "menu,menuone,noselect"
+opt.conceallevel = 2 -- Hide * markup for bold and italic, but not markers with substitutions
+opt.confirm = true -- Confirm to save changes before exiting modified buffer
+opt.cursorline = true -- Enable highlighting of the current line
+opt.expandtab = true -- Use spaces instead of tabs
+opt.fillchars = {
+  foldopen = "",
+  foldclose = "",
+  fold = " ",
+  foldsep = " ",
+  diff = "╱",
+  eob = " ",
+}
+opt.foldlevel = 99
+opt.formatexpr = "v:lua.require'geekvim.util'.format.formatexpr()"
+opt.formatoptions = "jcroqlnt" -- tcqj
+opt.grepformat = "%f:%l:%c:%m"
+opt.grepprg = "rg --vimgrep"
+opt.ignorecase = true -- Ignore case
+opt.inccommand = "nosplit" -- preview incremental substitute
+opt.jumpoptions = "view"
+opt.laststatus = 3 -- global statusline
+opt.linebreak = true -- Wrap lines at convenient points
+opt.list = true -- Show some invisible characters (tabs...
+opt.mouse = "a" -- Enable mouse mode
+opt.number = true -- Print line number
+opt.pumblend = 10 -- Popup blend
+opt.pumheight = 10 -- Maximum number of entries in a popup
+opt.relativenumber = true -- Relative line numbers
+opt.ruler = false -- Disable the default ruler
+opt.scrolloff = 4 -- Lines of context
+opt.sessionoptions = { "buffers", "curdir", "tabpages", "winsize", "help", "globals", "skiprtp", "folds" }
+opt.shiftround = true -- Round indent
+opt.shiftwidth = 2 -- Size of an indent
+opt.shortmess:append({ W = true, I = true, c = true, C = true })
+opt.showmode = false -- Dont show mode since we have a statusline
+opt.sidescrolloff = 8 -- Columns of context
+opt.signcolumn = "yes" -- Always show the signcolumn, otherwise it would shift the text each time
+opt.smartcase = true -- Don't ignore case with capitals
+opt.smartindent = true -- Insert indents automatically
+opt.spelllang = { "en" }
+opt.splitbelow = true -- Put new windows below current
+opt.splitkeep = "screen"
+opt.splitright = true -- Put new windows right of current
+opt.statuscolumn = [[%!v:lua.require'snacks.statuscolumn'.get()]]
+opt.tabstop = 2 -- Number of spaces tabs count for
+opt.termguicolors = true -- True color support
+opt.timeoutlen = vim.g.vscode and 1000 or 300 -- Lower than default (1000) to quickly trigger which-key
+opt.undofile = true
+opt.undolevels = 10000
+opt.updatetime = 200 -- Save swap file and trigger CursorHold
+opt.virtualedit = "block" -- Allow cursor to move where there is no text in visual block mode
+opt.wildmode = "longest:full,full" -- Command-line completion mode
+opt.winminwidth = 5 -- Minimum window width
+opt.wrap = false -- Disable line wrap
+
+if vim.fn.has("nvim-0.10") == 1 then
+  opt.smoothscroll = true
+  opt.foldexpr = "v:lua.require'geekvim.util'.ui.foldexpr()"
+  opt.foldmethod = "expr"
+  opt.foldtext = ""
+else
+  opt.foldmethod = "indent"
+  opt.foldtext = "v:lua.require'geekvim.util'.ui.foldtext()"
+end
+
+-- Fix markdown indentation settings
+vim.g.markdown_recommended_style = 0

@@ -4,7 +4,7 @@ vim.api.nvim_echo({
     "ErrorMsg",
   },
   {
-    "Please check the docs on how to get started with PowerVim\n",
+    "Please check the docs on how to get started with GeekVim\n",
     "WarningMsg",
   },
   { "Press any key to exit", "MoreMsg" },

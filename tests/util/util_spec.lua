@@ -1,6 +1,6 @@
 ---@module "luassert"
 
-local PowerVim = require("powervim.util")
+local GeekVim = require("geekvim.util")
 
 describe("util", function()
   local t = 0
@@ -9,7 +9,7 @@ describe("util", function()
     return a
   end
 
-  local m = PowerVim.memoize(fn)
+  local m = GeekVim.memoize(fn)
 
   it("should memoize a function", function()
     local a = m(1)
@@ -22,10 +22,10 @@ describe("util", function()
     assert.are_not.equal(a, c)
   end)
 
-  local f1 = PowerVim.memoize(function()
+  local f1 = GeekVim.memoize(function()
     return 1
   end)
-  local f2 = PowerVim.memoize(function()
+  local f2 = GeekVim.memoize(function()
     return 2
   end)
 
